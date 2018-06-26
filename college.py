@@ -6,6 +6,7 @@ from pymongo import MongoClient
 import time
 import datetime
 
+
 def to_integer(stu_doa):
     return 10000*stu_doa.year + 100*stu_doa.month + stu_doa.day 
 
@@ -247,7 +248,7 @@ class staff:
                     print("Please enter choice only Y and N and not small letter words or anything else")
                     exit()
             else :
-                print("record not deleted. It may face some Errors")
+                print("record can not deleted. It may face some Errors")
         except Exception as e :
             print (e)
 
@@ -516,8 +517,125 @@ class downrecord():
             m.mainmenu()
     
 
+class library():
+    def addbook(self):
+        b_id=int(input("enter book id"))
+        b_name=input("enter book name")
+        b_author=input("enter author name")
+        b_theme=input("enter theme of book")
+        b_qty=int(input("Total no. of book is.."))
+        b_price=float(input("enter book price"))
+        collection1=db.book
+        if collection1.insert({"book id":b_id,"book name":b_name,"author name":b_author,"book theme":b_theme,"total book":b_qty,"price":b_price}):
+            print("Record Added Successfully")
+            rch=input("Do you want to perform more addition? Y|N")
+            if rch=='Y':
+                lib.addbook()
+            elif rch=='N':
+                m.mainmenu()
+            else:
+                print("Please enter choice only Y and N and not small letter words or anything else")
+                exit()
+        else :
+            print("record not added. It may face some Errors")
+    def bookdetail(self):
+        b=[]
+        keys=[]
+        values=[]
+        id=int(input("enter book id"))
+        collection_bd=db.book
+        if collection_bd.find({},{"_id":0}):
+            for i in collection_bd.find({"book id":id},{"_id":0}):
+                b=i
+                print(b)
+                keys=list(b.keys())
+                values=list(b.values())
+            df=pd.DataFrame()
+            df=df.append({keys[0]:values[0]},ignore_index=True)
+            for i in range(1,len(keys)):
+                df2=pd.DataFrame()
+                df2=df2.append({keys[i]:values[i]},ignore_index=True)
+                df=pd.concat([df, df2],axis=1,join='inner')
+                print(df)
+                ch=input("Do you want to search more records.? ( Y| N)")
+                if ch=='Y':
+                    lib.bookdetail()
+                elif ch=='N':
+                    m.mainmenu()
+                else:
+                    print("wrong choice")
+                    exit()
+        else:
+            print("record not found...")
 
 
+    def delbook(self):
+        b={}
+        id=int(input("enter book id"))
+        collection=db.book
+        if collection.find({"book id":id},{"_id":0}):
+            for i in collection.find({"book id":id}):
+                b=i
+            if len(b)>0:
+                collection.remove({"book id":id},1)
+                print("delete successfully")
+                ch=input("Do you want to delete more record? (Y | N)")
+                if ch=='Y':
+                    lib.delbook()
+                elif ch=='N':
+                    m.mainmenu()
+                else:
+                    print("Not a valid option")
+                    exit()
+            else:
+                print("Record not found. Record can't deleted")
+                m.mainmenu()
+        else:
+            print("IT may face some error while searching record for deletion. Sorry for inconvience")
+
+    def updatebook(self,b_id,qty):
+        collection_up=db.book
+        collection_up.update({"book id":b_id},{ "$inc":{"total book":-qty}})
+
+    def up_ret_book(self,b_id,qty):
+        collection_up_ret=db.book
+        collection_up_ret.update({"book id":b_id},{ "$inc":{"total book":qty}})
+        
+
+    def issuebook(self):
+        s_id=int(input("enter roll no of student"))
+        name=input("enter name of student")
+        branch=input("enter branch of student")
+        year=input("enter year")
+        contact=input("enter contact no")
+        b_id=int(input("enter book id"))
+        b_name=input("enter name of book")
+        iss_dt=time.asctime( time.localtime(time.time()))
+        qty=int(input("enter total no. of books"))
+        collection_iss=db.library
+        if collection_iss.insert({"student id":s_id,"student name":name,"branch":branch,"year":year,"contact":contact,"book id":b_id,"book name":b_name,"issue date":iss_dt,"no of book":qty}):
+            print("Book issued successfully")
+            lib.updatebook(b_id,qty)
+            ch=input("Do you want to issue another books..( Y | N)")
+            if ch=='Y':
+                lib.issuebook()
+            elif ch=='N':
+                m.mainmenu()
+            else:
+                print("not a valid option")
+                exit()
+        else:
+            print("can't issue book right now")
+            m.mainmenu()
+
+    def retbook():
+        s_id=int(input("enter roll no of student"))
+        b_id=int(input("enter book id"))
+        qty=int(input("enter no of books to return"))
+        ret_dt=time.asctime( time.localtime(time.time()))
+        collection_ret=db.library
+        collection_ret.update({"student id":s_id},{"$set":{"return date":ret_dt}})
+        up_ret_book(b_id,qty)
 
 
 class main:
@@ -530,8 +648,10 @@ class main:
         print("  4. Update a Record  "," ")
         print("  5. View Result of Student  "," ")
         print("  6. Download complete records  "," ")
-        print("  7. Close Application  "," ")
-        choice=int(input("enter Your Choice of Opertaion (please select option from 1 to 7 only)"))
+        print("  7. Fees Department  "," ")
+        print("  8. Library "," ")
+        print("  9. Close Application  "," ")
+        choice=int(input("enter Your Choice of Opertaion (please select option from 1 to 9 only)"))
         system('cls')
         if choice==1:
             print(" Add Record For: "," ")
@@ -606,6 +726,29 @@ class main:
                 print("Sorry there is no operation for this choice. Try again..")
                 m.mainmenu()
         elif choice==7:
+            print("coming soon... Under Development")
+        elif choice==8:
+            print("Welcome to Library...")
+            print(" 1. Add Book"," ")
+            print(" 2. Issue Books")
+            print(" 3. Return Books")
+            print(" 4. Book  Detail")
+            print(" 5. Delete Books")
+            ch=int(input("please enter your choice"))
+            if ch==1:
+                lib.addbook()
+            elif ch==2:
+                lib.issuebook()
+            elif ch==3:
+                lib.retbook()
+            elif ch==4:
+                lib.bookdetail()
+            elif ch==5:
+                lib.delbook()
+            else:
+                print("Not a valid option")
+                m.mainmenu()
+        elif choice==9:
             exit()
         else:
             print("Sorry this is not a valid choice....")
@@ -619,7 +762,7 @@ st=staff()
 res=result()
 srch=search_record()
 down=downrecord()
-
+lib=library()
 
 
 
@@ -630,9 +773,9 @@ password=input("password")
 a={}
 conn=MongoClient('localhost',27017)
 db=conn.college_project
-collection=db.login
+collection_login=db.login
 db.login.find({"password":password})
-for post in collection.find():
+for post in collection_login.find():
     a=post
 if id==a['id']:
     if password==a['password']:
