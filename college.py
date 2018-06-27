@@ -638,6 +638,30 @@ class library():
         up_ret_book(b_id,qty)
 
 
+class fees:
+    def pay_fees(self):
+        stud={}
+        a=[]
+        keys=[]
+        values=[]
+        s_id=int(input("enter student id"))
+        collection_fe=db.student
+        if collection_fe.find({"roll":s_id},{"_id":0}):
+            for i in collection_fe.find({"roll":s_id},{"_id":0}):
+                stud=i
+            keys=list(stud.keys())
+            values=list(stud.values())
+            df=pd.DataFrame()
+            df=df.append({keys[0]:values[0]},ignore_index=True)
+            for i in range(1,len(keys)):
+                df2=pd.DataFrame()
+                df2=df2.append({keys[i]:values[i]},ignore_index=True)
+                df=pd.concat([df, df2],axis=1,join='inner')
+            print(df.T)
+
+
+
+
 class main:
     def mainmenu(self):
         print("      Welcome  to  JECRC portal    ","   ")
@@ -726,7 +750,7 @@ class main:
                 print("Sorry there is no operation for this choice. Try again..")
                 m.mainmenu()
         elif choice==7:
-            print("coming soon... Under Development")
+            f.pay_fees()
         elif choice==8:
             print("Welcome to Library...")
             print(" 1. Add Book"," ")
@@ -763,7 +787,7 @@ res=result()
 srch=search_record()
 down=downrecord()
 lib=library()
-
+f=fees()
 
 
 print("               Welcome to Project                 ","  ")
