@@ -658,9 +658,56 @@ class fees:
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
                 exit()
-        else :
-            print("Fees ca't submitted")
+        elif ch=='N':
+            m.mainmenu()
+        else:
+            print("Not a Option")
+            m.mainmenu()
 
+    def print_rec(self):
+        stu={}
+        s={}
+        keys=[]
+        values=[]
+        roll=int(input("enter roll/id for search/view record"))
+        collection_pr=db.fees
+        if collection_pr.find():
+            for post in collection_pr.find({"roll":roll}):
+                
+                stu=post
+                rollno=stu['roll']
+            if len(stu) >0:
+                print("record found for. ",stu['name']," ")
+            else :
+                print("no record found")
+                exit()
+                
+            ch=input("print Record..( Y | N )")
+            if ch=='Y':
+                for i in collection_pr.find({"roll":rollno},{"_id":0}):
+                    s=i  
+                #print(s)
+                keys=list(s.keys())
+                values=list(s.values())
+                df=pd.DataFrame()
+                df=df.append({keys[0]:values[0]},ignore_index=True)
+                for i in range(1,len(keys)):
+                    df2=pd.DataFrame()
+                    df2=df2.append({keys[i]:values[i]},ignore_index=True)
+                    df=pd.concat([df, df2],axis=1,join='inner')
+                print(df.T)
+                df3=str(df.T)
+                try:
+                    f=open("r.pdf",'w')
+                    f.write(df3)
+                    f.close()
+                except:
+                    print("error")
+            elif ch=='N':
+                m.mainmenu()
+            else:
+                print("Not a Option")
+                m.mainmenu()
 
 
 class main:
@@ -751,7 +798,16 @@ class main:
                 print("Sorry there is no operation for this choice. Try again..")
                 m.mainmenu()
         elif choice==7:
-            f.pay_fees()
+            print("   1. FEES payment "," ")
+            print("   2. Print Receipt", " ")
+            fch=int(input("enter option no."))
+            if fch==1:
+                f.pay_fees()
+            elif fch==2:
+                f.print_rec()
+            else:
+                print("not a valid option")
+                m.mainmenu()
         elif choice==8:
             print("Welcome to Library...")
             print(" 1. Add Book"," ")
