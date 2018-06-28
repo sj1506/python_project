@@ -507,7 +507,7 @@ class downrecord():
             df_main.to_excel(writer,'Sheet1')
             writer.save()
             print("print successfully")
-            ch=input("press c to continue to main menu or press e to exit")
+            ch=input("press c to continue to main menu or press any key to exit")
             if ch=='c':
                 m.mainmenu()
             else:
@@ -640,25 +640,26 @@ class library():
 
 class fees:
     def pay_fees(self):
-        stud={}
-        a=[]
-        keys=[]
-        values=[]
-        s_id=int(input("enter student id"))
-        collection_fe=db.student
-        if collection_fe.find({"roll":s_id},{"_id":0}):
-            for i in collection_fe.find({"roll":s_id},{"_id":0}):
-                stud=i
-            keys=list(stud.keys())
-            values=list(stud.values())
-            df=pd.DataFrame()
-            df=df.append({keys[0]:values[0]},ignore_index=True)
-            for i in range(1,len(keys)):
-                df2=pd.DataFrame()
-                df2=df2.append({keys[i]:values[i]},ignore_index=True)
-                df=pd.concat([df, df2],axis=1,join='inner')
-            print(df.T)
-
+        s_id=int(input("enter roll no of student"))
+        s_name=input("enter name of student")
+        branch=input("enter branch..")
+        course=input("enter course")
+        contact=input("enter contact no")
+        fees=float(input("enter fees amount"))
+        date=datetime.datetime.now()
+        collection_fee=db.fees
+        if collection_fee.insert({"roll":s_id,"name":s_name,"branch":branch,"course":course,"contact":contact,"fees":fees,"date of submission":date,"submission status":"paid"}):
+            print("fees paid Successfully")
+            rch=input("Do you want to perform more addition? Y|N")
+            if rch=='Y':
+                s.add_student()
+            elif rch=='N':
+                m.mainmenu()
+            else:
+                print("Please enter choice only Y and N and not small letter words or anything else")
+                exit()
+        else :
+            print("Fees ca't submitted")
 
 
 
