@@ -158,7 +158,7 @@ class teacher:
     def add_teacher(self):
         t_id=int(input("enter id for teacher"))
         t_name=input("enter name of teacher")
-        t_age=int(input("enter age of teacher"))
+        t_age=int(input("enter date of birth of teacher"))
         t_designation=input("enter designation of teacher")
         t_contact=input("enter contact number for teacher")
         t_address=input("enter address of teacher")
@@ -167,7 +167,7 @@ class teacher:
         t_email=input("enter email of teacher")
         t_doj= datetime.datetime.now()
         collection1=db.teacher
-        if collection1.insert({"teacher id":t_id,"teacher name":t_name,"teacher's age":t_age,"teacher's designation":t_designation,"teacher contact":t_contact,"address":t_address,
+        if collection1.insert({"teacher id":t_id,"teacher name":t_name,"teacher's dob":t_age,"teacher's designation":t_designation,"teacher contact":t_contact,"address":t_address,
                            "teacher's department":t_dept,"salary":t_salary,"teacher's email":t_email,"date of joining":to_integer(t_doj),"date of resign/fire":"","status":"active"}):
             print("Record Added Successfully")
             rch=input("Do you want to perform more addition? Y|N")
@@ -708,6 +708,57 @@ class fees:
             else:
                 print("Not a Option")
                 m.mainmenu()
+        else:
+            
+            print("no record found")
+
+class update:
+    def student(self):
+        try:
+            roll=int(input("enter roll no. to update record."))
+            collectionup=db.student
+            if collectionup.find({"roll":roll}):
+                roll_no=int(input("enter new roll no for student"))
+                name=input("enter new name..")
+                address=input("enter new address for student")
+                if collectionup.update({"roll":roll},{ "$set":{"roll":roll_no,"name":name,"address":address}}):
+                    print("record update Successfully")
+                    delch=input("Do you want to perform more updation? Y|N")
+                    if delch=='Y':
+                        up.student()
+                    elif delch=='N':
+                        m.mainmenu()
+                    else:
+                        print("Please enter choice only Y and N and not small letter words or anything else")
+                        exit()
+                else:
+                    print("record not updated. It may face some Errors")
+        except Exception as e :
+            print (e)
+
+    def teacher(self):
+        try:
+            t_id=int(input("enter id of teacher to update record."))
+            collectionupt=db.teacher
+            if collectionupt.find({"teacher id":t_id}):
+                teach_id=int(input("enter new id for teacher"))
+                t_designation=input("enter new designation of teacher")
+                t_dept=input("enter new department of teacher")
+                t_salary=float(input("enter new salary for teacher"))
+                if collectionupt.update({"teacher id":t_id},{ "$set":{"teacher id":teach_id,"teacher's designation":t_designation,"teacher's department":t_dept,"salary":t_salary}}):
+                    print("record update Successfully")
+                    delch=input("Do you want to perform more updation? Y|N")
+                    if delch=='Y':
+                        up.teacher()
+                    elif delch=='N':
+                        m.mainmenu()
+                    else:
+                        print("Please enter choice only Y and N and not small letter words or anything else")
+                        exit()
+                else:
+                    print("record not updated. It may face some Errors")
+        except Exception as e :
+            print (e)        
 
 
 class main:
@@ -779,7 +830,17 @@ class main:
                 print("You enter incorrect choice for functionality")
                 m.mainmenu()
         elif choice==4:
-            print("coming soon... Under Development")
+            print("Update Record for:-"," ")
+            print(" 1. Student"," ")
+            print(" 2. Teacher"," ")
+            ch=int(input("enter your choice.."))
+            if ch==1:
+                up.student()
+            elif ch==2:
+                up.teacher()
+            else:
+                print("Sorry there is no operation for this choice. Try again..")
+                m.mainmenu()
         elif choice==5:
             res.view_result()
         elif choice==6:
@@ -845,10 +906,12 @@ srch=search_record()
 down=downrecord()
 lib=library()
 f=fees()
-
+up=update()
 
 print("               Welcome to Project                 ","  ")
-print("Please  enter id and password to continue  ","  ")
+time=datetime.datetime.now()
+print("   Today's Time is ",time)
+print("Please  enter id and password to continue     ","  ")
 id =int(input("enter id "))
 password=input("password")
 a={}
