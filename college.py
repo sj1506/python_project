@@ -31,6 +31,7 @@ class student:
             if rch=='Y':
                 s.add_student()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
@@ -49,6 +50,7 @@ class student:
                 if delch=='Y':
                     del_student()
                 elif delch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("Please enter choice only Y and N and not small letter words or anything else")
@@ -82,6 +84,7 @@ class result():
             if rch=='Y':
                 res.add_result()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
@@ -98,6 +101,7 @@ class result():
             if ch=='Y':
                 res.del_result()
             elif ch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
@@ -139,6 +143,7 @@ class result():
                 if ch=='Y':
                     res.view_result()
                 elif ch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("wrong choice")
@@ -147,6 +152,7 @@ class result():
                 m.mainmenu()
             else:
                 print("Not a Option")
+                system('cls')
                 m.mainmenu()
         else:
             print("Error")
@@ -174,6 +180,7 @@ class teacher:
             if rch=='Y':
                 teach.add_teacher()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 
@@ -194,6 +201,7 @@ class teacher:
                 if delch=='Y':
                     teach.del_student()
                 elif delch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("Please enter choice only Y and N and not small letter words or anything else")
@@ -223,6 +231,7 @@ class staff:
             if rch=='Y':
                 st.add_staff()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 
@@ -243,6 +252,7 @@ class staff:
                 if delch=='Y':
                     st.del_student()
                 elif delch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("Please enter choice only Y and N and not small letter words or anything else")
@@ -296,6 +306,7 @@ class search_record():
                 m.mainmenu()
             else:
                 print("Not a Option")
+                system('cls')
                 m.mainmenu()
         else:
             print("Error")
@@ -335,11 +346,13 @@ class search_record():
                 if ch=='Y':
                     srch.search_teacher()
                 elif ch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("wrong choice")
                     exit()
             elif ch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Not a Option")
@@ -387,6 +400,7 @@ class search_record():
                     print("wrong choice")
                     exit()
             elif ch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Not a Option")
@@ -428,12 +442,14 @@ class downrecord():
             print("print successfully")
             ch=input("press c to continue to main menu or press e to exit")
             if ch=='c':
+                system('cls')
                 m.mainmenu()
             else:
                 exit()
                 
         else:
             print("Error. No database found!!!!")
+            system('cls')
             m.mainmenu()
     def xl_teacher(self):
         keys=[]
@@ -468,6 +484,7 @@ class downrecord():
             print("print successfully")
             ch=input("press c to continue to main menu or press e to exit")
             if ch=='c':
+                system('cls')
                 m.mainmenu()
             else:
                 exit()    
@@ -509,6 +526,7 @@ class downrecord():
             print("print successfully")
             ch=input("press c to continue to main menu or press any key to exit")
             if ch=='c':
+                system('cls')
                 m.mainmenu()
             else:
                 exit()    
@@ -532,6 +550,7 @@ class library():
             if rch=='Y':
                 lib.addbook()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
@@ -561,6 +580,7 @@ class library():
                 if ch=='Y':
                     lib.bookdetail()
                 elif ch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("wrong choice")
@@ -583,12 +603,14 @@ class library():
                 if ch=='Y':
                     lib.delbook()
                 elif ch=='N':
+                    system('cls')
                     m.mainmenu()
                 else:
                     print("Not a valid option")
                     exit()
             else:
                 print("Record not found. Record can't deleted")
+                system('cls')
                 m.mainmenu()
         else:
             print("IT may face some error while searching record for deletion. Sorry for inconvience")
@@ -620,6 +642,7 @@ class library():
             if ch=='Y':
                 lib.issuebook()
             elif ch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("not a valid option")
@@ -654,11 +677,13 @@ class fees:
             if rch=='Y':
                 s.add_student()
             elif rch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Please enter choice only Y and N and not small letter words or anything else")
                 exit()
         elif ch=='N':
+            system('cls')
             m.mainmenu()
         else:
             print("Not a Option")
@@ -704,9 +729,11 @@ class fees:
                 except:
                     print("error")
             elif ch=='N':
+                system('cls')
                 m.mainmenu()
             else:
                 print("Not a Option")
+                system('cls')
                 m.mainmenu()
         else:
             
@@ -727,6 +754,7 @@ class update:
                     if delch=='Y':
                         up.student()
                     elif delch=='N':
+                        system('cls')
                         m.mainmenu()
                     else:
                         print("Please enter choice only Y and N and not small letter words or anything else")
@@ -751,6 +779,7 @@ class update:
                     if delch=='Y':
                         up.teacher()
                     elif delch=='N':
+                        system('cls')
                         m.mainmenu()
                     else:
                         print("Please enter choice only Y and N and not small letter words or anything else")
@@ -794,6 +823,7 @@ class main:
                 res.add_result()
             else:
                 print("you enter incorrect option for operation of record addtion")
+                system('cls')
                 mainmenu()
         elif choice==2:
             print(" Delete Record For: "," ")
@@ -813,7 +843,8 @@ class main:
                 res.del_result()
             else:
                 print("you enter incorrect option for operation of record deletion")
-                mainmenu()
+                system('cls')
+                m.mainmenu()
         elif choice==3:
             print("View Record for:...."," ")
             print(" 1. Student"," ")
@@ -828,6 +859,7 @@ class main:
                 srch.search_staff()
             else:
                 print("You enter incorrect choice for functionality")
+                system('cls')
                 m.mainmenu()
         elif choice==4:
             print("Update Record for:-"," ")
@@ -840,6 +872,7 @@ class main:
                 up.teacher()
             else:
                 print("Sorry there is no operation for this choice. Try again..")
+                system('cls')
                 m.mainmenu()
         elif choice==5:
             res.view_result()
@@ -857,6 +890,7 @@ class main:
                 down.xl_staff()
             else:
                 print("Sorry there is no operation for this choice. Try again..")
+                system('cls')
                 m.mainmenu()
         elif choice==7:
             print("   1. FEES payment "," ")
@@ -868,6 +902,7 @@ class main:
                 f.print_rec()
             else:
                 print("not a valid option")
+                system('cls')
                 m.mainmenu()
         elif choice==8:
             print("Welcome to Library...")
@@ -889,6 +924,7 @@ class main:
                 lib.delbook()
             else:
                 print("Not a valid option")
+                system('cls')
                 m.mainmenu()
         elif choice==9:
             exit()
